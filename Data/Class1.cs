@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace APIEstudos.Domain
+namespace APIEstudo.Data
 {
     public class Class1
     {

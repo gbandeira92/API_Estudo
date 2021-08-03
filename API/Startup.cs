@@ -1,12 +1,15 @@
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using APIEstudo.Data;
+using APIEstudo.Data.Repositorio.Implementacao;
+using APIEstudo.Data.Repositorio.Interface;
+using APIEstudos.Services.Implementacao;
+using APIEstudos.Services.Interface;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.OpenApi.Models;
 
 namespace APIEstudos.API
 {
@@ -16,6 +19,16 @@ namespace APIEstudos.API
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
+            services.AddControllersWithViews()
+                .AddNewtonsoftJson(options =>
+                options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
+            );
+            Swagger(services);
+            services.AddScoped<ITipoClienteRepositorio, TipoClienteRepositorio>();
+            services.AddScoped<ITipoClienteService, TipoClienteService>();
+            services.AddDbContext<MainContext>();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -25,14 +38,50 @@ namespace APIEstudos.API
             {
                 app.UseDeveloperExceptionPage();
             }
+            app.UseSwagger();
+
+            app.UseSwaggerUI(c =>
+            c.SwaggerEndpoint("/swagger/v1/swagger.json", "GuilhermeAPIEstudos v1")); ;
 
             app.UseRouting();
 
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapGet("/", async context =>
+                endpoints.MapControllers();
+            }
+            );
+
+        }
+        private static void Swagger(IServiceCollection services)
+        {
+            services.AddSwaggerGen(c =>
+            {
+                c.EnableAnnotations();
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "API Estudos Guilherme", Version = "v1" });
+                c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
                 {
-                    await context.Response.WriteAsync("Hello World!");
+                    Description = "Para as APIs com autenticacão use o header com token, como exemplo: 'Bearer 12345abcdef'",
+                    Name = "Authorization",
+                    In = ParameterLocation.Header,
+                    Type = SecuritySchemeType.ApiKey,
+                    Scheme = "Bearer"
+                });
+                c.AddSecurityRequirement(new OpenApiSecurityRequirement()
+                {
+                    {
+                        new OpenApiSecurityScheme
+                        {
+                            Reference = new OpenApiReference
+                            {
+                                Type = ReferenceType.SecurityScheme,
+                                Id = "Bearer"
+                            },
+                            Scheme = "SSO",
+                            Name = "Bearer",
+                            In = ParameterLocation.Header,
+                        },
+                        new List<string>()
+                    }
                 });
             });
         }
