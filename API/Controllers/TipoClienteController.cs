@@ -61,9 +61,9 @@ namespace APIEstudos.API.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public IActionResult Delete(TipoCliente tipoCliente)
+        public IActionResult Delete(int id)
         {
-            _tipoClienteService.Delete(tipoCliente);
+            _tipoClienteService.Delete(id);
             return StatusCode(200, "Tipo de cliente deletado com sucesso");
         }
 

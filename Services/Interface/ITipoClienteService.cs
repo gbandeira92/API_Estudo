@@ -11,7 +11,7 @@ namespace APIEstudos.Services.Interface
 
         List<TipoCliente> GetAll();
 
-        void Delete(TipoCliente tipoCliente);
+        void Delete(int id);
 
         void Update(TipoCliente tipoCliente);
     }

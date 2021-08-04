@@ -16,9 +16,9 @@ namespace APIEstudos.Services.Implementacao
             _tipoClienteRepositorio = tipoClienteRepositorio;
         }
 
-        public void Delete(TipoCliente tipoCliente)
+        public void Delete(int id)
         {
-            var tipoClienteResult = _tipoClienteRepositorio.GetByID(tipoCliente.ID);
+            var tipoClienteResult = _tipoClienteRepositorio.GetByID(id);
             if (tipoClienteResult != null)
             {
                 _tipoClienteRepositorio.Delete(tipoClienteResult);
