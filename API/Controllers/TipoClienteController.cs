@@ -7,7 +7,7 @@ using Swashbuckle.AspNetCore.Annotations;
 
 namespace APIEstudos.API.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/v1/[controller]")]
     [ApiController]
     public class TipoClienteController : ControllerBase
     {
@@ -80,7 +80,7 @@ namespace APIEstudos.API.Controllers
         public IActionResult Put([FromBody] TipoCliente tipoCliente)
         {
             _tipoClienteService.Update(tipoCliente);
-            return StatusCode(200, "Tipo de cliente alterado com sucesso");
+            return StatusCode(200, $"ID {tipoCliente.ID} alterado para o nome {tipoCliente.Nome}");
             //return StatusCode(200, _tipoClienteService.Update(tipoCliente));
         }
     }
