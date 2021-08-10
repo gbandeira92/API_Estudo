@@ -15,28 +15,10 @@ namespace APIEstudo.Data.Repositorio.Implementacao
             _context = context;
         }
 
-        public void Delete(TipoCliente tipoCliente)
-        {
-            _context.Remove(tipoCliente);
-            _context.SaveChanges();
-        }
-
         public List<TipoCliente> GetAll()
         {
             return _context.TipoCliente.ToList();
         }
-
-        public TipoCliente GetByID(int ID)
-        {
-            var tipoCliente = _context.TipoCliente.Find(ID);
-            return tipoCliente;
-        }
-
-        //public TipoCliente DeleteByName(TipoCliente tipoCliente)
-        //{
-        //    var tipoClienteResult = _context.TipoCliente.Find(tipoCliente);
-        //    return tipoClienteResult;
-        //}
 
         public void Insert(TipoCliente tipoCliente)
         {
@@ -55,6 +37,19 @@ namespace APIEstudo.Data.Repositorio.Implementacao
                 return result;
             }
             return tipoCliente;
+
         }
+        public void Delete(TipoCliente tipoCliente)
+        {
+            _context.Remove(tipoCliente);
+            _context.SaveChanges();
+        }
+
+        public TipoCliente GetByID(int ID)
+        {
+            var tipoCliente = _context.TipoCliente.Find(ID);
+            return tipoCliente;
+        }
+        
     }
 }

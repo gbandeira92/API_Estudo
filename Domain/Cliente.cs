@@ -10,6 +10,8 @@ namespace APIEstudos.Domain
         public string Nome { get; set; }
         public int Idade { get; set; }
         public bool Ativo { get; set; }
+        public int TipoClienteID { get; set; }
+        public TipoCliente TipoCliente { get; set; }
 
     }
 

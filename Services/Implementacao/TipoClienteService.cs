@@ -1,5 +1,4 @@
-﻿
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using APIEstudo.Data.Repositorio.Interface;
 using APIEstudos.Domain;
 using APIEstudos.Domain.DTO;
@@ -16,18 +15,7 @@ namespace APIEstudos.Services.Implementacao
             _tipoClienteRepositorio = tipoClienteRepositorio;
         }
 
-        public void Delete(int id)
-        {
-            var tipoClienteResult = _tipoClienteRepositorio.GetByID(id);
-            if (tipoClienteResult != null)
-            {
-                _tipoClienteRepositorio.Delete(tipoClienteResult);
-            }
-            
-            //var tipoCliente = _tipoClienteRepositorio.Where(t => t.ID == id).FirstOrDefault();
-        }
-
-        public List<TipoCliente> GetAll()
+        public List<TipoCliente> GetAllTipoCliente()
         {
             return _tipoClienteRepositorio.GetAll();
         }
@@ -39,9 +27,19 @@ namespace APIEstudos.Services.Implementacao
             _tipoClienteRepositorio.Insert(tipoCliente);
         }
 
-        public void Update(TipoCliente tipoCliente)
+        public void UpdateTipoCliente(TipoCliente tipoCliente)
         {
             _tipoClienteRepositorio.Update(tipoCliente);
         }
+        public void DeleteTipoCliente(int id)
+        {
+            var tipoClienteResult = _tipoClienteRepositorio.GetByID(id);
+            if (tipoClienteResult != null)
+            {
+                _tipoClienteRepositorio.Delete(tipoClienteResult);
+            }
+
+        }
+
     }
 }

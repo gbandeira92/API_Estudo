@@ -27,6 +27,8 @@ namespace APIEstudos.API
             Swagger(services);
             services.AddScoped<ITipoClienteRepositorio, TipoClienteRepositorio>();
             services.AddScoped<ITipoClienteService, TipoClienteService>();
+            services.AddScoped<IClienteRepositorio, ClienteRepositorio>();
+            services.AddScoped<IClienteService, ClienteService>();
             services.AddDbContext<MainContext>();
 
         }

@@ -1,13 +1,12 @@
-﻿
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace APIEstudos.Domain.DTO
 {
-    public class TipoClienteDTO
+    public class ClienteDTO
     {
         [Required(ErrorMessage = "Nome Obrigatório")]
-        [MinLength(3)]
         [MaxLength(255)]
+        [MinLength(3)]
         public string Nome { get; set; }
     }
 }

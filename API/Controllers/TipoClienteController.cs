@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using APIEstudos.Domain;
 using APIEstudos.Domain.DTO;
 using APIEstudos.Services.Interface;
@@ -7,7 +8,7 @@ using Swashbuckle.AspNetCore.Annotations;
 
 namespace APIEstudos.API.Controllers
 {
-    [Route("api/v1/[controller]")]
+    [Route("v1/[controller]")]
     [ApiController]
     public class TipoClienteController : ControllerBase
     {
@@ -20,17 +21,17 @@ namespace APIEstudos.API.Controllers
 
         [HttpGet]
         [SwaggerOperation(
-            Summary = "endpoint que retorna a lista dos clientes",
-            Description = "endpoint que retorno a lista dos clientes",
+            Summary = "endpoint que retorna a lista de Tipoclientes",
+            Description = "endpoint que retorno a lista de Tipoclientes",
             OperationId = "Get"
             )]
 
-        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(TipoClienteDTO))]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(List<TipoClienteDTO>))]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public IActionResult Get()
         {
-            var result = _tipoClienteService.GetAll();
+            var result = _tipoClienteService.GetAllTipoCliente();
             return StatusCode(200, result);
         }
 
@@ -51,22 +52,6 @@ namespace APIEstudos.API.Controllers
             return StatusCode(201, "Tipo de cliente inserido com sucesso");
         }
 
-        [HttpDelete("{id}")]
-        [SwaggerOperation(
-            Summary = "endpoint que deleta da lista dos clientes",
-            Description = "endpoint que deleta da lista dos clientes",
-            OperationId = "Delete"
-            )]
-
-        [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public IActionResult Delete(int id)
-        {
-            _tipoClienteService.Delete(id);
-            return StatusCode(200, "Tipo de cliente deletado com sucesso");
-        }
-
         [HttpPut]
         [SwaggerOperation(
             Summary = "endpoint que altera a lista dos clientes",
@@ -79,9 +64,25 @@ namespace APIEstudos.API.Controllers
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public IActionResult Put([FromBody] TipoCliente tipoCliente)
         {
-            _tipoClienteService.Update(tipoCliente);
+            _tipoClienteService.UpdateTipoCliente(tipoCliente);
             return StatusCode(200, $"ID {tipoCliente.ID} alterado para o nome {tipoCliente.Nome}");
-            //return StatusCode(200, _tipoClienteService.Update(tipoCliente));
         }
+
+        [HttpDelete("{id}")]
+        [SwaggerOperation(
+            Summary = "endpoint que deleta da lista dos clientes",
+            Description = "endpoint que deleta da lista dos clientes",
+            OperationId = "Delete"
+            )]
+
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public IActionResult Delete(int id)
+        {
+            _tipoClienteService.DeleteTipoCliente(id);
+            return StatusCode(200, "Tipo de cliente deletado com sucesso");
+        }
+
     }
 }

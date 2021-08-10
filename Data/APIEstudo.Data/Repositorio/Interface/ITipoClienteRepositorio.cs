@@ -10,11 +10,10 @@ namespace APIEstudo.Data.Repositorio.Interface
 
         void Insert(TipoCliente tipoCliente);
 
-        void Delete(TipoCliente tipoCliente);
-
         TipoCliente Update(TipoCliente tipoCliente);
 
+        void Delete(TipoCliente tipoCliente);
+
         TipoCliente GetByID(int ID);
-        //TipoCliente DeleteByName(TipoCliente tipoCliente);
     }
 }
