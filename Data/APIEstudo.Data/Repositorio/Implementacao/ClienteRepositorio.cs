@@ -2,6 +2,7 @@
 using System.Linq;
 using APIEstudo.Data.Repositorio.Interface;
 using APIEstudos.Domain;
+using Microsoft.EntityFrameworkCore;
 
 namespace APIEstudo.Data.Repositorio.Implementacao
 {
@@ -16,7 +17,7 @@ namespace APIEstudo.Data.Repositorio.Implementacao
 
         public List<Cliente> GetAll()
         {
-            return _mainContext.Cliente.ToList();
+            return _mainContext.Cliente.Include(x => x.TipoCliente).ToList();
         }
 
         public void Insert(Cliente cliente)

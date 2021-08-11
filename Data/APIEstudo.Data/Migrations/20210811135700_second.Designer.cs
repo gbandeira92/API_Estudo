@@ -3,14 +3,16 @@ using APIEstudo.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace APIEstudo.Data.Migrations
 {
     [DbContext(typeof(MainContext))]
-    partial class MainContextModelSnapshot : ModelSnapshot
+    [Migration("20210811135700_second")]
+    partial class second
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -67,16 +69,11 @@ namespace APIEstudo.Data.Migrations
                         new
                         {
                             ID = 1,
-                            Nome = "Desenvolvedor"
-                        },
-                        new
-                        {
-                            ID = 2,
                             Nome = "Jogador"
                         },
                         new
                         {
-                            ID = 3,
+                            ID = 2,
                             Nome = "Allien"
                         });
                 });

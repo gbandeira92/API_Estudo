@@ -17,7 +17,14 @@ namespace APIEstudo.Data
 
             }
         }
+        public MainContext(DbContextOptions<MainContext> options) : base(options){ }
 
+        protected override void OnModelCreating(ModelBuilder builder)
+        {
+            base.OnModelCreating(builder);
+            builder.ApplyConfigurationsFromAssembly(typeof(MainContext).Assembly);
+
+        }
 
 
 
